@@ -207,11 +207,11 @@ mvn clean package -pl en16931-purifier-cli
 
 # News and noteworthy
 
-* v1.0.0 - work in progress
-    * Initial version
-    * Supports EN 16931:2017 in the UBL syntax (Invoice and Credit Note) and in the CII syntax
-    * Supports UBL 2.1, UBL 2.5, CII D16B and CII D25A for reading, XML Schema validation and writing
-    * Contains the extension point for EN 16931:2026
+v1.0.0 - 2026-09-04
+* Initial version
+* Supports EN 16931:2017 in the UBL syntax (Invoice and Credit Note) and in the CII syntax
+* Supports UBL 2.1, UBL 2.5, CII D16B and CII D25A for reading, XML Schema validation and writing
+* Contains the extension point for EN 16931:2026
 
 ---
 
