@@ -1,0 +1,14 @@
+.claude/
+.idea/
+.settings/ 
+bin/
+target/
+
+.classpath 
+.DS_Store
+.project 
+pom.xml.releaseBackup
+release.properties
+zz
+
+*.iml
