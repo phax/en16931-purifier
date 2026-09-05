@@ -34,15 +34,24 @@ Requires Java 17+.
 ## Architecture
 
 The purification is **declarative**. The EN 16931 core message is described as a whitelist of XML
-paths per (EN version x syntax kind); a generic engine prunes the DOM against that whitelist and
+paths per (EN edition x syntax kind); a generic engine prunes the DOM against that whitelist and
 ph-ubl / ph-cii perform the XML Schema validation and the serialization.
 
+The facts about the standard itself - the editions, the syntax kinds, the document types and the
+XML namespace URIs - come from [en16931-basics](https://github.com/phax/en16931-basics) and are
+deliberately **not** duplicated here:
+
 ```
-com.helger.en16931.purifier
-  EEN16931Version          V2017 (implemented), V2026 (declared, no rule sets yet)
+com.helger.en16931.basics       (external, from en16931-basics)
+  EEN16931Edition          EN2017 (implemented), EN2026 (no rule sets yet)
   EEN16931SyntaxKind       UBL_INVOICE, UBL_CREDIT_NOTE, CII - selects the rule set
-  EEN16931DocumentType     syntax kind x syntax version - creates the matching purifier
-  CEN16931Syntax           namespace URIs and document element names
+  EEN16931DocumentType     syntax kind x syntax version, data only
+  CEN16931Syntax           namespace URIs, prefixes and document element names
+
+com.helger.en16931.purifier
+  EN16931Purifiers         the lookups on top of those data only enums:
+                           getRuleSet (edition, syntaxKind), isSupported (edition),
+                           createPurifier (docType, edition), DEFAULT_EDITION
   AbstractEN16931Purifier  settings, DOM pruning, JAXB round trip, writing
     UBL21InvoicePurifier / UBL21CreditNotePurifier
     UBL25InvoicePurifier / UBL25CreditNotePurifier
@@ -73,17 +82,18 @@ com.helger.en16931.purifier.ruleset
    this is what guarantees the XML Schema validity of the result
 4. Write the JAXB object with the same marshaller
 
-### Adding a new EN 16931 version
+### Adding a new EN 16931 edition
 
-Add a `EN16931xxxRules2026` class in `com.helger.en16931.purifier.ruleset`, return the rule sets
-from `EEN16931Version.getRuleSet` and flip the `bSupported` flag of the enum constant. Neither the
-engine nor any purifier class needs to change.
+Add a `EN16931xxxRules2026` class in `com.helger.en16931.purifier.ruleset` and return the rule sets
+from `EN16931Purifiers.getRuleSet`. `isSupported` derives itself from that, so nothing else needs
+to be flipped, and neither the engine nor any purifier class needs to change.
 
 ### Adding a new syntax version
 
 Add a purifier class deriving from `AbstractEN16931Purifier` that returns the new marshaller from
-`createMarshaller`, and add a constant to `EEN16931DocumentType`. The rule sets are shared, because
-all UBL 2.x versions and all CII versions use the same XML namespace URIs and element names.
+`createMarshaller`, add the constant to `EEN16931DocumentType` **in en16931-basics** and add the
+matching branch to `EN16931Purifiers.createPurifier`. The rule sets are shared, because all UBL 2.x
+versions and all CII versions use the same XML namespace URIs and element names.
 
 ## Rule Set Authoring
 
@@ -113,6 +123,8 @@ three-way mapping of every business term to its UBL Invoice, UBL Credit Note and
 
 ## Key Dependencies
 
+- **en16931-basics** — the shared facts about EN 16931: editions, syntax kinds, document types and
+  the XML namespace URIs. Everything that changes when the *standard* changes lives there, not here
 - **ph-commons** — Helger utilities, DOM helpers, error handling, collection types
 - **ph-ubl** — UBL 2.1 and 2.5 JAXB models, XSDs and marshalling
 - **ph-cii** — CII D16B and D25A JAXB models, XSDs and marshalling

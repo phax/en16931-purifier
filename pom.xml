@@ -26,7 +26,7 @@
     <version>3.1.0</version>
   </parent>
   <artifactId>en16931-purifier-parent-pom</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>en16931-purifier-parent-pom</name>
   <inceptionYear>2026</inceptionYear>
@@ -57,6 +57,7 @@
   </developers>
 
   <properties>
+    <en16931-basics.version>1.0.0</en16931-basics.version>
     <phive-rules.version>4.5.5</phive-rules.version>
     <picocli.version>4.7.7</picocli.version>
   </properties>
@@ -85,6 +86,11 @@
         <scope>import</scope>
       </dependency>
 
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>en16931-basics</artifactId>
+        <version>${en16931-basics.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>en16931-purifier</artifactId>

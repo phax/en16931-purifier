@@ -19,6 +19,8 @@ package com.helger.en16931.purifier;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.en16931.basics.EEN16931Edition;
+import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.ubl21.UBL21Marshaller;
 
@@ -32,22 +34,22 @@ import oasis.names.specification.ubl.schema.xsd.invoice_21.InvoiceType;
 public class UBL21InvoicePurifier extends AbstractEN16931Purifier <InvoiceType, UBL21InvoicePurifier>
 {
   /**
-   * Constructor using {@link EEN16931Version#DEFAULT}
+   * Constructor using {@link EN16931Purifiers#DEFAULT_EDITION}
    */
   public UBL21InvoicePurifier ()
   {
-    this (EEN16931Version.DEFAULT);
+    this (EN16931Purifiers.DEFAULT_EDITION);
   }
 
   /**
    * Constructor
    *
-   * @param eVersion
-   *        The EN 16931 version defining the core message. May not be <code>null</code>.
+   * @param eEdition
+   *        The EN 16931 edition defining the core message. May not be <code>null</code>.
    */
-  public UBL21InvoicePurifier (@NonNull final EEN16931Version eVersion)
+  public UBL21InvoicePurifier (@NonNull final EEN16931Edition eEdition)
   {
-    super (eVersion, EEN16931SyntaxKind.UBL_INVOICE);
+    super (eEdition, EEN16931SyntaxKind.UBL_INVOICE);
   }
 
   @Override

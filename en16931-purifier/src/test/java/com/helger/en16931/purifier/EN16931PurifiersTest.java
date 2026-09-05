@@ -29,71 +29,64 @@ import java.io.File;
 import org.junit.Test;
 
 import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.en16931.basics.EEN16931DocumentType;
+import com.helger.en16931.basics.EEN16931Edition;
+import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.en16931.purifier.rule.PurificationRuleSet;
 
 /**
- * Test class for the enums {@link EEN16931Version}, {@link EEN16931SyntaxKind} and
- * {@link EEN16931DocumentType}.
+ * Test class for class {@link EN16931Purifiers}.
  *
  * @author Philip Helger
  */
-public final class EEN16931VersionTest
+public final class EN16931PurifiersTest
 {
   @Test
   public void testAllRuleSetsOf2017 ()
   {
     for (final EEN16931SyntaxKind eSyntaxKind : EEN16931SyntaxKind.values ())
     {
-      final PurificationRuleSet aRuleSet = EEN16931Version.V2017.getRuleSet (eSyntaxKind);
+      final PurificationRuleSet aRuleSet = EN16931Purifiers.getRuleSet (EEN16931Edition.EN2017, eSyntaxKind);
       assertNotNull ("No rule set for " + eSyntaxKind, aRuleSet);
       assertEquals (eSyntaxKind.getRootElementName (), aRuleSet.getRootElementName ());
       assertTrue (aRuleSet.getRootNode ().hasChildren ());
     }
-    assertTrue (EEN16931Version.V2017.isSupported ());
-    assertSame (EEN16931Version.V2017, EEN16931Version.DEFAULT);
+    assertTrue (EN16931Purifiers.isSupported (EEN16931Edition.EN2017));
+    assertSame (EEN16931Edition.EN2017, EN16931Purifiers.DEFAULT_EDITION);
   }
 
   @Test
   public void testNoRuleSetsOf2026 ()
   {
-    assertFalse (EEN16931Version.V2026.isSupported ());
+    assertFalse (EN16931Purifiers.isSupported (EEN16931Edition.EN2026));
     for (final EEN16931SyntaxKind eSyntaxKind : EEN16931SyntaxKind.values ())
-      assertNull (EEN16931Version.V2026.getRuleSet (eSyntaxKind));
+      assertNull (EN16931Purifiers.getRuleSet (EEN16931Edition.EN2026, eSyntaxKind));
   }
 
   @Test
   public void testPurifyWith2026Fails ()
   {
     final ErrorList aErrorList = new ErrorList ();
-    final UBL21InvoicePurifier aPurifier = new UBL21InvoicePurifier (EEN16931Version.V2026);
+    final UBL21InvoicePurifier aPurifier = new UBL21InvoicePurifier (EEN16931Edition.EN2026);
     assertNull (aPurifier.getRuleSet ());
     assertNull (aPurifier.purify (new File (MockTestFiles.UBL_INVOICE_DIR, "base-example.xml"), aErrorList));
     assertTrue (aErrorList.containsAtLeastOneError ());
   }
 
   @Test
-  public void testGetFromID ()
+  public void testCreatePurifier ()
   {
-    for (final EEN16931Version e : EEN16931Version.values ())
-      assertSame (e, EEN16931Version.getFromIDOrNull (e.getID ()));
-    for (final EEN16931SyntaxKind e : EEN16931SyntaxKind.values ())
-    {
-      assertSame (e, EEN16931SyntaxKind.getFromIDOrNull (e.getID ()));
-      assertSame (e, EEN16931SyntaxKind.getFromRootElementNameOrNull (e.getRootElementName ()));
-    }
     for (final EEN16931DocumentType e : EEN16931DocumentType.values ())
     {
-      assertSame (e, EEN16931DocumentType.getFromIDOrNull (e.getID ()));
-      assertSame (e,
-                  EEN16931DocumentType.getFromSyntaxKindAndVersionOrNull (e.getSyntaxKind (), e.getSyntaxVersion ()));
-      final AbstractEN16931Purifier <?, ?> aPurifier = e.createPurifier (EEN16931Version.V2017);
+      final AbstractEN16931Purifier <?, ?> aPurifier = EN16931Purifiers.createPurifier (e, EEN16931Edition.EN2017);
       assertNotNull (aPurifier);
       assertSame (e.getSyntaxKind (), aPurifier.getSyntaxKind ());
-      assertSame (EEN16931Version.V2017, aPurifier.getVersion ());
+      assertSame (EEN16931Edition.EN2017, aPurifier.getEdition ());
+
+      final AbstractEN16931Purifier <?, ?> aDefaultPurifier = EN16931Purifiers.createPurifier (e);
+      assertNotNull (aDefaultPurifier);
+      assertSame (e.getSyntaxKind (), aDefaultPurifier.getSyntaxKind ());
+      assertSame (EN16931Purifiers.DEFAULT_EDITION, aDefaultPurifier.getEdition ());
     }
-    assertNull (EEN16931Version.getFromIDOrNull ("bogus"));
-    assertNull (EEN16931SyntaxKind.getFromIDOrNull ("bogus"));
-    assertNull (EEN16931DocumentType.getFromIDOrNull ("bogus"));
-    assertNull (EEN16931DocumentType.getFromSyntaxKindAndVersionOrNull (EEN16931SyntaxKind.CII, "D99Z"));
   }
 }

@@ -29,26 +29,23 @@ import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
-import javax.xml.namespace.QName;
-
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import com.helger.base.state.ESuccess;
-import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.en16931.basics.EEN16931DocumentType;
+import com.helger.en16931.basics.EEN16931Edition;
+import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.en16931.purifier.AbstractEN16931Purifier;
-import com.helger.en16931.purifier.EEN16931DocumentType;
-import com.helger.en16931.purifier.EEN16931SyntaxKind;
-import com.helger.en16931.purifier.EEN16931Version;
+import com.helger.en16931.purifier.EN16931Purifiers;
 import com.helger.en16931.purifier.PurifierVersion;
 import com.helger.io.file.FileSystemIterator;
 import com.helger.io.file.FileSystemRecursiveIterator;
@@ -260,21 +257,9 @@ public class EN16931PurifierCLI implements Callable <Integer>
   }
 
   @Nullable
-  private static EEN16931SyntaxKind _getSyntaxKind (@NonNull final Document aDoc)
-  {
-    final Element aRoot = aDoc.getDocumentElement ();
-    if (aRoot == null)
-      return null;
-
-    final QName aRootElementName = new QName (StringHelper.getNotNull (aRoot.getNamespaceURI ()),
-                                              aRoot.getLocalName ());
-    return EEN16931SyntaxKind.getFromRootElementNameOrNull (aRootElementName);
-  }
-
-  @Nullable
   private EEN16931DocumentType _getDocumentType (@NonNull final File aSrcFile, @NonNull final Document aDoc)
   {
-    final EEN16931SyntaxKind eSyntaxKind = _getSyntaxKind (aDoc);
+    final EEN16931SyntaxKind eSyntaxKind = EEN16931SyntaxKind.getFromNodeOrNull (aDoc);
     if (eSyntaxKind == null)
     {
       LOGGER.error ("The file '" +
@@ -300,12 +285,12 @@ public class EN16931PurifierCLI implements Callable <Integer>
     if (m_bVerbose)
       System.setProperty ("org.slf4j.simpleLogger.defaultLogLevel", "debug");
 
-    final EEN16931Version eENVersion = EEN16931Version.getFromIDOrNull (m_sENVersion);
-    if (eENVersion == null)
+    final EEN16931Edition eEdition = EEN16931Edition.getFromIDOrNull (m_sENVersion);
+    if (eEdition == null)
       throw new IllegalStateException ("Unsupported EN 16931 version '" + m_sENVersion + "' provided.");
-    if (!eENVersion.isSupported ())
+    if (!EN16931Purifiers.isSupported (eEdition))
       throw new IllegalStateException ("The syntax bindings of " +
-                                       eENVersion.getDisplayName () +
+                                       eEdition.getDisplayName () +
                                        " are not yet available.");
 
     m_sOutputDir = _normalizeOutputDirectory (m_sOutputDir);
@@ -333,7 +318,7 @@ public class EN16931PurifierCLI implements Callable <Integer>
 
       _verboseLog ( () -> "Determined the document to be a " + eDocType.getDisplayName ());
 
-      final AbstractEN16931Purifier <?, ?> aPurifier = eDocType.createPurifier (eENVersion);
+      final AbstractEN16931Purifier <?, ?> aPurifier = EN16931Purifiers.createPurifier (eDocType, eEdition);
       aPurifier.setRemoveNonCoreAttributes (m_bRemoveNonCoreAttributes)
                .setRemoveEmptyElements (m_bRemoveEmptyElements)
                .setEnforceCardinalities (m_bEnforceCardinalities)

@@ -23,7 +23,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.en16931.purifier.CEN16931Syntax;
+import com.helger.en16931.basics.CEN16931Syntax;
 import com.helger.en16931.purifier.rule.PurificationRuleNode;
 import com.helger.en16931.purifier.rule.PurificationRuleSet;
 import com.helger.en16931.purifier.rule.PurificationRuleSetBuilder;

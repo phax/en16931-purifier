@@ -32,6 +32,8 @@ import com.helger.base.trait.IGenericImplTrait;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.SingleError;
 import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.en16931.basics.EEN16931Edition;
+import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.en16931.purifier.rule.IPurificationSettings;
 import com.helger.en16931.purifier.rule.PurificationEngine;
 import com.helger.en16931.purifier.rule.PurificationRuleSet;
@@ -41,7 +43,7 @@ import com.helger.xml.serialize.read.DOMReader;
 
 /**
  * Base class for all EN 16931 purifiers. A purifier removes everything from an EN 16931 invoice
- * that is not part of the core message of the configured EN 16931 version, and returns the result
+ * that is not part of the core message of the configured EN 16931 edition, and returns the result
  * as an XML Schema valid JAXB object.
  *
  * @author Philip Helger
@@ -68,7 +70,7 @@ public abstract class AbstractEN16931Purifier <JAXBTYPE, IMPLTYPE extends Abstra
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractEN16931Purifier.class);
 
-  private final EEN16931Version m_eVersion;
+  private final EEN16931Edition m_eEdition;
   private final EEN16931SyntaxKind m_eSyntaxKind;
   private boolean m_bRemoveNonCoreAttributes = DEFAULT_REMOVE_NON_CORE_ATTRIBUTES;
   private boolean m_bRemoveEmptyElements = DEFAULT_REMOVE_EMPTY_ELEMENTS;
@@ -79,17 +81,17 @@ public abstract class AbstractEN16931Purifier <JAXBTYPE, IMPLTYPE extends Abstra
   /**
    * Constructor
    *
-   * @param eVersion
-   *        The EN 16931 version defining the core message. May not be <code>null</code>.
+   * @param eEdition
+   *        The EN 16931 edition defining the core message. May not be <code>null</code>.
    * @param eSyntaxKind
    *        The syntax kind handled by this purifier. May not be <code>null</code>.
    */
-  protected AbstractEN16931Purifier (@NonNull final EEN16931Version eVersion,
+  protected AbstractEN16931Purifier (@NonNull final EEN16931Edition eEdition,
                                      @NonNull final EEN16931SyntaxKind eSyntaxKind)
   {
-    ValueEnforcer.notNull (eVersion, "Version");
+    ValueEnforcer.notNull (eEdition, "Edition");
     ValueEnforcer.notNull (eSyntaxKind, "SyntaxKind");
-    m_eVersion = eVersion;
+    m_eEdition = eEdition;
     m_eSyntaxKind = eSyntaxKind;
   }
 
@@ -118,12 +120,12 @@ public abstract class AbstractEN16931Purifier <JAXBTYPE, IMPLTYPE extends Abstra
   protected abstract GenericJAXBMarshaller <JAXBTYPE> createMarshaller ();
 
   /**
-   * @return The EN 16931 version defining the core message. Never <code>null</code>.
+   * @return The EN 16931 edition defining the core message. Never <code>null</code>.
    */
   @NonNull
-  public final EEN16931Version getVersion ()
+  public final EEN16931Edition getEdition ()
   {
-    return m_eVersion;
+    return m_eEdition;
   }
 
   /**
@@ -137,12 +139,12 @@ public abstract class AbstractEN16931Purifier <JAXBTYPE, IMPLTYPE extends Abstra
 
   /**
    * @return The rule set used by this purifier or <code>null</code> if the configured EN 16931
-   *         version has no rule set for the syntax kind of this purifier.
+   *         edition has no rule set for the syntax kind of this purifier.
    */
   @Nullable
   public final PurificationRuleSet getRuleSet ()
   {
-    return m_eVersion.getRuleSet (m_eSyntaxKind);
+    return EN16931Purifiers.getRuleSet (m_eEdition, m_eSyntaxKind);
   }
 
   public final boolean isRemoveNonCoreAttributes ()
@@ -225,7 +227,7 @@ public abstract class AbstractEN16931Purifier <JAXBTYPE, IMPLTYPE extends Abstra
     if (aRuleSet == null)
     {
       aErrorList.add (_buildError ("No rule set is available for " +
-                                   m_eVersion.getDisplayName () +
+                                   m_eEdition.getDisplayName () +
                                    " in the syntax '" +
                                    m_eSyntaxKind.getDisplayName () +
                                    "'"));

@@ -27,16 +27,19 @@ This library is licensed under the Apache License Version 2.0.
 All UBL 2.x versions use the same XML namespace URIs and the same element names, and so do all CII versions.
 The syntax version can therefore **not** be derived from the document itself - it selects the XML Schema and the JAXB model that are used for reading, validating and writing, and must be provided by the caller.
 
-# Supported EN 16931 versions
+# Supported EN 16931 editions
 
-| Version | State | Syntax binding |
+| Edition | State | Syntax binding |
 |---------|-------|----------------|
-| `EEN16931Version.V2017` | supported | CEN/TS 16931-3-2 (UBL) and CEN/TS 16931-3-3 (CII) |
-| `EEN16931Version.V2026` | declared, not yet implemented | the syntax bindings of the 2026 revision are not yet published |
+| `EEN16931Edition.EN2017` | supported | CEN/TS 16931-3-2 (UBL) and CEN/TS 16931-3-3 (CII) |
+| `EEN16931Edition.EN2026` | declared, not yet implemented | the syntax bindings of the 2026 revision are not yet published |
 
-The core message of every EN 16931 version is described by a set of `PurificationRuleSet` objects - one per syntax kind.
-Adding the 2026 revision therefore only means adding new rule sets in the package `com.helger.en16931.purifier.ruleset` and returning them from `EEN16931Version.getRuleSet`; neither the engine nor the purifier classes need to change.
-Purifying with `V2026` currently fails with an error, so that no document is silently purified with the wrong rules.
+The core message of every EN 16931 edition is described by a set of `PurificationRuleSet` objects - one per syntax kind.
+Adding the 2026 revision therefore only means adding new rule sets in the package `com.helger.en16931.purifier.ruleset` and returning them from `EN16931Purifiers.getRuleSet`; neither the engine nor the purifier classes need to change.
+Purifying with `EN2026` currently fails with an error, so that no document is silently purified with the wrong rules.
+
+The edition, the syntax kinds and the document types come from [en16931-basics](https://github.com/phax/en16931-basics), the artefact that holds the facts about the standard itself.
+It is pulled in transitively and needs no separate dependency declaration.
 
 # Usage
 
@@ -49,6 +52,8 @@ The entrance classes are:
 * CII D25A: `com.helger.en16931.purifier.CIID25APurifier`
 
 All of them derive from `AbstractEN16931Purifier` and offer the same `purify` methods.
+The no-argument constructor uses `EN16931Purifiers.DEFAULT_EDITION`; pass an `EEN16931Edition` to select another one.
+`EN16931Purifiers.createPurifier (docType, edition)` creates the matching purifier for an `EEN16931DocumentType`, if the document type is only known at runtime.
 Additionally an `ErrorList` object must be provided as a container for all errors that occur and for the informational entries that describe what was removed.
 The purification is deemed successful, if a non-`null` object is returned **and** if the error list contains no error (`errorList.containsNoError ()`).
 
@@ -206,6 +211,13 @@ mvn clean package -pl en16931-purifier-cli
 ```
 
 # News and noteworthy
+
+v1.1.0 - work in progress
+* Now using the shared [en16931-basics](https://github.com/phax/en16931-basics) library for the facts about the standard
+* Removed `CEN16931Syntax`, `EEN16931SyntaxKind` and `EEN16931DocumentType` in favour of the identical classes in package `com.helger.en16931.basics`
+* Replaced `EEN16931Version` with `EEN16931Edition` of `en16931-basics`; `V2017` is now `EN2017` and `V2026` is now `EN2026`
+* Added class `EN16931Purifiers` taking over `getRuleSet`, `isSupported` and `createPurifier` from the removed enums
+* `AbstractEN16931Purifier.getVersion ()` was renamed to `getEdition ()`
 
 v1.0.0 - 2026-09-04
 * Initial version

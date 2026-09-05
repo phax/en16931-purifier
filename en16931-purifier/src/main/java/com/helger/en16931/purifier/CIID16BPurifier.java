@@ -20,6 +20,8 @@ package com.helger.en16931.purifier;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.cii.d16b.CIID16BCrossIndustryInvoiceTypeMarshaller;
+import com.helger.en16931.basics.EEN16931Edition;
+import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.jaxb.GenericJAXBMarshaller;
 
 import un.unece.uncefact.data.standard.crossindustryinvoice._100.CrossIndustryInvoiceType;
@@ -32,22 +34,22 @@ import un.unece.uncefact.data.standard.crossindustryinvoice._100.CrossIndustryIn
 public class CIID16BPurifier extends AbstractEN16931Purifier <CrossIndustryInvoiceType, CIID16BPurifier>
 {
   /**
-   * Constructor using {@link EEN16931Version#DEFAULT}
+   * Constructor using {@link EN16931Purifiers#DEFAULT_EDITION}
    */
   public CIID16BPurifier ()
   {
-    this (EEN16931Version.DEFAULT);
+    this (EN16931Purifiers.DEFAULT_EDITION);
   }
 
   /**
    * Constructor
    *
-   * @param eVersion
-   *        The EN 16931 version defining the core message. May not be <code>null</code>.
+   * @param eEdition
+   *        The EN 16931 edition defining the core message. May not be <code>null</code>.
    */
-  public CIID16BPurifier (@NonNull final EEN16931Version eVersion)
+  public CIID16BPurifier (@NonNull final EEN16931Edition eEdition)
   {
-    super (eVersion, EEN16931SyntaxKind.CII);
+    super (eEdition, EEN16931SyntaxKind.CII);
   }
 
   @Override

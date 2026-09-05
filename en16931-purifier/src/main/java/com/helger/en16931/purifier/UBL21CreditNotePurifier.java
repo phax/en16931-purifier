@@ -19,6 +19,8 @@ package com.helger.en16931.purifier;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.en16931.basics.EEN16931Edition;
+import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.ubl21.UBL21Marshaller;
 
@@ -32,22 +34,22 @@ import oasis.names.specification.ubl.schema.xsd.creditnote_21.CreditNoteType;
 public class UBL21CreditNotePurifier extends AbstractEN16931Purifier <CreditNoteType, UBL21CreditNotePurifier>
 {
   /**
-   * Constructor using {@link EEN16931Version#DEFAULT}
+   * Constructor using {@link EN16931Purifiers#DEFAULT_EDITION}
    */
   public UBL21CreditNotePurifier ()
   {
-    this (EEN16931Version.DEFAULT);
+    this (EN16931Purifiers.DEFAULT_EDITION);
   }
 
   /**
    * Constructor
    *
-   * @param eVersion
-   *        The EN 16931 version defining the core message. May not be <code>null</code>.
+   * @param eEdition
+   *        The EN 16931 edition defining the core message. May not be <code>null</code>.
    */
-  public UBL21CreditNotePurifier (@NonNull final EEN16931Version eVersion)
+  public UBL21CreditNotePurifier (@NonNull final EEN16931Edition eEdition)
   {
-    super (eVersion, EEN16931SyntaxKind.UBL_CREDIT_NOTE);
+    super (eEdition, EEN16931SyntaxKind.UBL_CREDIT_NOTE);
   }
 
   @Override
