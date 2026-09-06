@@ -227,7 +227,7 @@ mvn clean package -pl en16931-purifier-cli
 
 # News and noteworthy
 
-v1.1.0 - work in progress
+v1.1.0 - 2026-09-05
 * Now using the shared [en16931-basics](https://github.com/phax/en16931-basics) library for the facts about the standard
 * Removed `CEN16931Syntax`, `EEN16931SyntaxKind` and `EEN16931DocumentType` in favour of the identical classes in package `com.helger.en16931.basics`
 * Replaced `EEN16931Version` with `EEN16931Edition` of `en16931-basics`; `V2017` is now `EN2017` and `V2026` is now `EN2026`
