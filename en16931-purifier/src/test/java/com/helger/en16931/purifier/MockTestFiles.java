@@ -40,6 +40,7 @@ final class MockTestFiles
   static final String UBL_CREDIT_NOTE_DIR = BASE_TEST_DIR + "ubl/creditnote";
   static final String CII_DIR = BASE_TEST_DIR + "cii";
   static final String PURIFY_DIR = BASE_TEST_DIR + "purify";
+  static final String PURIFY_2026_DIR = BASE_TEST_DIR + "purify2026";
 
   private MockTestFiles ()
   {}

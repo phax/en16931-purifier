@@ -27,7 +27,9 @@ import com.helger.en16931.basics.EEN16931Edition;
 import com.helger.en16931.basics.EEN16931SyntaxKind;
 import com.helger.en16931.purifier.rule.PurificationRuleSet;
 import com.helger.en16931.purifier.ruleset.EN16931CIIRules2017;
+import com.helger.en16931.purifier.ruleset.EN16931CIIRules2026;
 import com.helger.en16931.purifier.ruleset.EN16931UBLRules2017;
+import com.helger.en16931.purifier.ruleset.EN16931UBLRules2026;
 
 /**
  * The lookups of this project on top of the data only enums of <code>en16931-basics</code>: the
@@ -72,8 +74,12 @@ public final class EN16931Purifiers
         case UBL_CREDIT_NOTE -> EN16931UBLRules2017.getCreditNoteRuleSet ();
         case CII -> EN16931CIIRules2017.getCrossIndustryInvoiceRuleSet ();
       };
-      // The syntax bindings of EN 16931:2026 are not yet available
-      case EN2026 -> null;
+      case EN2026 -> switch (eSyntaxKind)
+      {
+        case UBL_INVOICE -> EN16931UBLRules2026.getInvoiceRuleSet ();
+        case UBL_CREDIT_NOTE -> EN16931UBLRules2026.getCreditNoteRuleSet ();
+        case CII -> EN16931CIIRules2026.getCrossIndustryInvoiceRuleSet ();
+      };
     };
   }
 

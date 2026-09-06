@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Purpose built UBL 2.5 Invoice that uses every business term that is new in EN 16931:2026,
+     mixed with content that is not part of the 2026 core message. -->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <!-- not core -->
+  <cbc:UBLVersionID>2.5</cbc:UBLVersionID>
+  <cbc:CustomizationID>urn:cen.eu:en16931:2026</cbc:CustomizationID>
+  <cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+  <cbc:ID>INV-2026-0001</cbc:ID>
+  <cbc:IssueDate>2026-01-15</cbc:IssueDate>
+  <!-- BT-166 Invoice issue time - new in 2026 -->
+  <cbc:IssueTime>12:05:03+01:00</cbc:IssueTime>
+  <cbc:DueDate>2026-02-15</cbc:DueDate>
+  <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+  <!-- not core - the invoice note moved to cac:Annotation -->
+  <cbc:Note>Legacy note that is not part of the 2026 core message</cbc:Note>
+  <cbc:TaxPointDate>2026-01-15</cbc:TaxPointDate>
+  <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+  <cbc:TaxCurrencyCode>SEK</cbc:TaxCurrencyCode>
+  <cbc:AccountingCost>4025:123:4343</cbc:AccountingCost>
+  <!-- not core - the buyer reference moved to cac:BuyerAssignedReference -->
+  <cbc:BuyerReference>LegacyBuyerReference</cbc:BuyerReference>
+  <cac:InvoicePeriod>
+    <cbc:StartDate>2026-01-01</cbc:StartDate>
+    <cbc:EndDate>2026-01-31</cbc:EndDate>
+    <cbc:DescriptionCode>3</cbc:DescriptionCode>
+  </cac:InvoicePeriod>
+  <cac:OrderReference>
+    <cbc:ID>PO-4711</cbc:ID>
+    <cbc:SalesOrderID>SO-4711</cbc:SalesOrderID>
+  </cac:OrderReference>
+  <cac:BillingReference>
+    <cac:InvoiceDocumentReference>
+      <cbc:ID>INV-2025-0999</cbc:ID>
+      <cbc:IssueDate>2025-12-01</cbc:IssueDate>
+      <!-- BT-202 Preceding invoice type code - new in 2026 -->
+      <cbc:DocumentTypeCode>380</cbc:DocumentTypeCode>
+    </cac:InvoiceDocumentReference>
+  </cac:BillingReference>
+  <cac:DespatchDocumentReference>
+    <cbc:ID>DESPADV-1</cbc:ID>
+  </cac:DespatchDocumentReference>
+  <!-- BT-197 Delivery note reference - new in 2026 -->
+  <cac:DeliveryNoteDocumentReference>
+    <cbc:ID>DELNOTE-1</cbc:ID>
+  </cac:DeliveryNoteDocumentReference>
+  <cac:ReceiptDocumentReference>
+    <cbc:ID>RECADV-1</cbc:ID>
+  </cac:ReceiptDocumentReference>
+  <cac:OriginatorDocumentReference>
+    <cbc:ID>TENDER-1</cbc:ID>
+  </cac:OriginatorDocumentReference>
+  <cac:ContractDocumentReference>
+    <cbc:ID>CONTRACT-1</cbc:ID>
+  </cac:ContractDocumentReference>
+  <!-- BT-18 Invoiced object identifier -->
+  <cac:AdditionalDocumentReference>
+    <cbc:ID schemeID="AVE">METERING-POINT-1</cbc:ID>
+    <cbc:DocumentTypeCode>130</cbc:DocumentTypeCode>
+  </cac:AdditionalDocumentReference>
+  <!-- BG-24 Additional supporting documents -->
+  <cac:AdditionalDocumentReference>
+    <cbc:ID>SUPPORT-1</cbc:ID>
+    <cbc:DocumentTypeCode listID="1001">916</cbc:DocumentTypeCode>
+    <cbc:DocumentDescription>Time sheet</cbc:DocumentDescription>
+    <cac:Attachment>
+      <cbc:EmbeddedDocumentBinaryObject mimeCode="text/csv" filename="timesheet.csv">SGVsbG8=</cbc:EmbeddedDocumentBinaryObject>
+      <cac:ExternalReference>
+        <cbc:URI>https://example.org/timesheet.csv</cbc:URI>
+      </cac:ExternalReference>
+    </cac:Attachment>
+  </cac:AdditionalDocumentReference>
+  <!-- not core - neither BT-18 nor BG-24, because there is no document type code -->
+  <cac:AdditionalDocumentReference>
+    <cbc:ID>UndiscriminatedDocumentReference</cbc:ID>
+  </cac:AdditionalDocumentReference>
+  <cac:ProjectReference>
+    <cbc:ID>PROJECT-1</cbc:ID>
+  </cac:ProjectReference>
+  <!-- BT-10 and BT-10-1 Buyer reference - moved here in 2026 -->
+  <cac:BuyerAssignedReference>
+    <cbc:BuyerReferenceCode>ADE</cbc:BuyerReferenceCode>
+    <cbc:BuyerReference>BuyerReference2026</cbc:BuyerReference>
+  </cac:BuyerAssignedReference>
+  <!-- BG-1 BT-21 and BT-22 Invoice note - moved here in 2026 -->
+  <cac:Annotation>
+    <cbc:SubjectCode>AAA</cbc:SubjectCode>
+    <cbc:AnnotationContent>An invoice note in the 2026 representation</cbc:AnnotationContent>
+  </cac:Annotation>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="0088">9482348239847239874</cbc:EndpointID>
+      <cac:PartyIdentification>
+        <cbc:ID>99887766</cbc:ID>
+      </cac:PartyIdentification>
+      <!-- BT-90a Bank assigned creditor identifier -->
+      <cac:PartyIdentification>
+        <cbc:ID schemeID="SEPA">SEPA-CREDITOR-1</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>SupplierTradingName Ltd.</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>Main street 1</cbc:StreetName>
+        <cbc:AdditionalStreetName>Postbox 123</cbc:AdditionalStreetName>
+        <cbc:CityName>London</cbc:CityName>
+        <cbc:PostalZone>GB 123 EW</cbc:PostalZone>
+        <cbc:CountrySubentity>Greater London</cbc:CountrySubentity>
+        <cac:AddressLine>
+          <cbc:Line>Third address line</cbc:Line>
+        </cac:AddressLine>
+        <cac:Country>
+          <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <!-- BT-31 Seller VAT identifier -->
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>GB1232434</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <!-- BT-32 Seller tax registration identifier - 'LOC' since 2026 -->
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>GB-LOCAL-4711</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID>LOC</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>SupplierOfficialName Ltd</cbc:RegistrationName>
+        <cbc:CompanyID>GB983294</cbc:CompanyID>
+        <cbc:CompanyLegalForm>Limited</cbc:CompanyLegalForm>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:Name>Seller contact</cbc:Name>
+        <cbc:Telephone>+44 1234 5678</cbc:Telephone>
+        <cbc:ElectronicMail>seller@example.org</cbc:ElectronicMail>
+      </cac:Contact>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="0002">FR23342</cbc:EndpointID>
+      <cac:PartyIdentification>
+        <cbc:ID schemeID="0002">FR23342</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>BuyerTradingName AS</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>Hovedgatan 32</cbc:StreetName>
+        <cbc:CityName>Stockholm</cbc:CityName>
+        <cbc:PostalZone>456 34</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>SE4598375937</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>Buyer Official Name</cbc:RegistrationName>
+        <cbc:CompanyID schemeID="0183">39937423947</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:Name>Lisa Johnson</cbc:Name>
+        <cbc:Telephone>23434234</cbc:Telephone>
+        <cbc:ElectronicMail>lj@buyer.se</cbc:ElectronicMail>
+      </cac:Contact>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:PayeeParty>
+    <cac:PartyIdentification>
+      <cbc:ID>PAYEE-1</cbc:ID>
+    </cac:PartyIdentification>
+    <cac:PartyName>
+      <cbc:Name>Payee Name</cbc:Name>
+    </cac:PartyName>
+    <cac:PartyLegalEntity>
+      <cbc:CompanyID schemeID="0183">PAYEE-LEGAL-1</cbc:CompanyID>
+    </cac:PartyLegalEntity>
+  </cac:PayeeParty>
+  <cac:TaxRepresentativeParty>
+    <cac:PartyName>
+      <cbc:Name>Tax Representative Name</cbc:Name>
+    </cac:PartyName>
+    <cac:PostalAddress>
+      <cbc:StreetName>Tax rep street 5</cbc:StreetName>
+      <cbc:CityName>Berlin</cbc:CityName>
+      <cbc:PostalZone>10115</cbc:PostalZone>
+      <cac:Country>
+        <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+      </cac:Country>
+    </cac:PostalAddress>
+    <cac:PartyTaxScheme>
+      <cbc:CompanyID>DE123456789</cbc:CompanyID>
+      <cac:TaxScheme>
+        <cbc:ID>VAT</cbc:ID>
+      </cac:TaxScheme>
+    </cac:PartyTaxScheme>
+  </cac:TaxRepresentativeParty>
+  <cac:Delivery>
+    <cbc:ActualDeliveryDate>2026-01-10</cbc:ActualDeliveryDate>
+    <cac:DeliveryLocation>
+      <cbc:ID schemeID="0088">9483759475923478</cbc:ID>
+      <cac:Address>
+        <cbc:StreetName>Delivery street 2</cbc:StreetName>
+        <cbc:CityName>Stockholm</cbc:CityName>
+        <cbc:PostalZone>21234</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:Address>
+    </cac:DeliveryLocation>
+    <cac:DeliveryParty>
+      <cac:PartyName>
+        <cbc:Name>Delivery party Name</cbc:Name>
+      </cac:PartyName>
+    </cac:DeliveryParty>
+  </cac:Delivery>
+  <cac:PaymentMeans>
+    <cbc:PaymentMeansCode name="Credit transfer">30</cbc:PaymentMeansCode>
+    <cbc:PaymentID>Payment reference 1</cbc:PaymentID>
+    <cac:CardAccount>
+      <cbc:PrimaryAccountNumberID>1234</cbc:PrimaryAccountNumberID>
+      <!-- not core in 2026 - cbc:NetworkID is optional since UBL 2.4 -->
+      <cbc:NetworkID>VISA</cbc:NetworkID>
+      <cbc:HolderName>Card holder</cbc:HolderName>
+    </cac:CardAccount>
+    <cac:PayeeFinancialAccount>
+      <cbc:ID>IBAN32423940</cbc:ID>
+      <cbc:Name>AccountName</cbc:Name>
+      <cac:FinancialInstitutionBranch>
+        <cbc:ID>BIC324098</cbc:ID>
+      </cac:FinancialInstitutionBranch>
+    </cac:PayeeFinancialAccount>
+    <cac:PaymentMandate>
+      <cbc:ID>MANDATE-1</cbc:ID>
+      <cac:PayerFinancialAccount>
+        <cbc:ID>DE75512108001245126199</cbc:ID>
+        <!-- BT-216 Debited account name - new in 2026 -->
+        <cbc:Name>Debited account name</cbc:Name>
+        <!-- BT-215 Debited account payment service provider identifier - new in 2026 -->
+        <cac:FinancialInstitutionBranch>
+          <cbc:ID>DEBTORBIC1</cbc:ID>
+        </cac:FinancialInstitutionBranch>
+      </cac:PayerFinancialAccount>
+    </cac:PaymentMandate>
+  </cac:PaymentMeans>
+  <!-- BG-33 PAYMENT TERMS, BG-35 EARLY PAYMENT DISCOUNT and BG-36 LATE PAYMENT PENALTY -->
+  <cac:PaymentTerms>
+    <cbc:Note>Payment within 30 days</cbc:Note>
+    <cbc:SettlementDiscountPercent>2.00</cbc:SettlementDiscountPercent>
+    <cbc:SettlementDiscountAmount currencyID="EUR">10.00</cbc:SettlementDiscountAmount>
+    <cbc:PenaltyAmount currencyID="EUR">15.00</cbc:PenaltyAmount>
+    <cac:SettlementPeriod>
+      <cbc:EndDate>2026-01-25</cbc:EndDate>
+    </cac:SettlementPeriod>
+    <cac:PenaltyPeriod>
+      <cbc:StartDate>2026-02-16</cbc:StartDate>
+    </cac:PenaltyPeriod>
+    <cac:PenaltyInterestRate>
+      <cbc:InterestRatePercent>9.00</cbc:InterestRatePercent>
+    </cac:PenaltyInterestRate>
+  </cac:PaymentTerms>
+  <!-- BG-20 DOCUMENT LEVEL ALLOWANCES with BT-173, BT-174 and BT-213 - new in 2026 -->
+  <cac:AllowanceCharge>
+    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+    <cbc:AllowanceChargeReasonCode>95</cbc:AllowanceChargeReasonCode>
+    <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+    <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+    <cbc:Amount currencyID="EUR">100</cbc:Amount>
+    <cbc:BaseAmount currencyID="EUR">1000</cbc:BaseAmount>
+    <cac:TaxCategory>
+      <cbc:ID>E</cbc:ID>
+      <cbc:Percent>0.0</cbc:Percent>
+      <cbc:TaxExemptionReasonCode>VATEX-EU-AE</cbc:TaxExemptionReasonCode>
+      <cbc:TaxExemptionReason>Reverse charge</cbc:TaxExemptionReason>
+      <cbc:SupplyTypeCode>1</cbc:SupplyTypeCode>
+      <cac:TaxScheme>
+        <cbc:ID>VAT</cbc:ID>
+      </cac:TaxScheme>
+    </cac:TaxCategory>
+  </cac:AllowanceCharge>
+  <!-- BG-21 DOCUMENT LEVEL CHARGES AND TAXES with BT-177 and BT-177-1 - new in 2026 -->
+  <cac:AllowanceCharge>
+    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+    <cbc:AllowanceChargeReasonCode listID="5153">ENV</cbc:AllowanceChargeReasonCode>
+    <cbc:AllowanceChargeReason>Environmental tax</cbc:AllowanceChargeReason>
+    <cbc:Amount currencyID="EUR">25</cbc:Amount>
+    <cac:TaxCategory>
+      <cbc:ID>S</cbc:ID>
+      <cbc:Percent>25.0</cbc:Percent>
+      <cbc:SupplyTypeCode>2</cbc:SupplyTypeCode>
+      <cac:TaxScheme>
+        <cbc:ID>VAT</cbc:ID>
+      </cac:TaxScheme>
+    </cac:TaxCategory>
+  </cac:AllowanceCharge>
+  <!-- BT-167, BT-167-1 and BT-167-2 VAT accounting currency exchange rate - new in 2026 -->
+  <cac:TaxExchangeRate>
+    <cbc:SourceCurrencyCode>SEK</cbc:SourceCurrencyCode>
+    <cbc:TargetCurrencyCode>EUR</cbc:TargetCurrencyCode>
+    <cbc:CalculationRate>0.0885</cbc:CalculationRate>
+  </cac:TaxExchangeRate>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxableAmount currencyID="EUR">1325</cbc:TaxableAmount>
+      <cbc:TaxAmount currencyID="EUR">331.25</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cbc:ID>S</cbc:ID>
+        <cbc:Percent>25.0</cbc:Percent>
+        <cbc:TaxExemptionReasonCode>VATEX-EU-79-C</cbc:TaxExemptionReasonCode>
+        <cbc:TaxExemptionReason>Exemption reason text</cbc:TaxExemptionReason>
+        <!-- BT-210 VAT breakdown goods/services code - new in 2026 -->
+        <cbc:SupplyTypeCode>3</cbc:SupplyTypeCode>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="SEK">3743.50</cbc:TaxAmount>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="EUR">1300</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="EUR">1325</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="EUR">1656.25</cbc:TaxInclusiveAmount>
+    <cbc:AllowanceTotalAmount currencyID="EUR">100</cbc:AllowanceTotalAmount>
+    <cbc:ChargeTotalAmount currencyID="EUR">25</cbc:ChargeTotalAmount>
+    <cbc:PrepaidAmount currencyID="EUR">0</cbc:PrepaidAmount>
+    <cbc:PayableRoundingAmount currencyID="EUR">0</cbc:PayableRoundingAmount>
+    <cbc:PayableAmount currencyID="EUR">1656.25</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <!-- BG-34 CHARGES ON BEHALF OF A THIRD PARTY - new in 2026 -->
+  <cac:CollectionInvoiceLine>
+    <cbc:ID>THIRD-PARTY-1</cbc:ID>
+    <cbc:TaxInclusiveLineExtensionAmount currencyID="EUR">12.50</cbc:TaxInclusiveLineExtensionAmount>
+    <cac:Item>
+      <cbc:Description>Copyright levy collected for the collecting society</cbc:Description>
+    </cac:Item>
+  </cac:CollectionInvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:Note>Invoice line note</cbc:Note>
+    <cbc:InvoicedQuantity unitCode="DAY">7</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">2800</cbc:LineExtensionAmount>
+    <cbc:AccountingCost>Konteringsstreng</cbc:AccountingCost>
+    <cac:InvoicePeriod>
+      <cbc:StartDate>2026-01-01</cbc:StartDate>
+      <cbc:EndDate>2026-01-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+    <cac:OrderLineReference>
+      <cbc:LineID>123</cbc:LineID>
+      <!-- BT-201 Invoice line sales order line reference - new in 2026 -->
+      <cbc:SalesOrderLineID>456</cbc:SalesOrderLineID>
+      <cac:OrderReference>
+        <!-- BT-188 and BT-200 Invoice line purchase and sales order reference - new in 2026 -->
+        <cbc:ID>PO-4711</cbc:ID>
+        <cbc:SalesOrderID>SO-4711</cbc:SalesOrderID>
+      </cac:OrderReference>
+    </cac:OrderLineReference>
+    <!-- BT-189 and BT-190 Invoice line despatch advice reference - new in 2026 -->
+    <cac:DespatchLineReference>
+      <cbc:LineID>11</cbc:LineID>
+      <cac:DocumentReference>
+        <cbc:ID>DESPADV-1</cbc:ID>
+      </cac:DocumentReference>
+    </cac:DespatchLineReference>
+    <!-- BT-191 and BT-192 Invoice line receiving advice reference - new in 2026 -->
+    <cac:ReceiptLineReference>
+      <cbc:LineID>12</cbc:LineID>
+      <cac:DocumentReference>
+        <cbc:ID>RECADV-1</cbc:ID>
+      </cac:DocumentReference>
+    </cac:ReceiptLineReference>
+    <!-- BG-39 LINE-LEVEL PRECEDING INVOICE REFERENCE - new in 2026 -->
+    <cac:BillingReference>
+      <cac:InvoiceDocumentReference>
+        <cbc:ID>INV-2025-0999</cbc:ID>
+        <cbc:IssueDate>2025-12-01</cbc:IssueDate>
+        <cbc:DocumentTypeCode>380</cbc:DocumentTypeCode>
+      </cac:InvoiceDocumentReference>
+      <cac:BillingReferenceLine>
+        <cbc:ID>7</cbc:ID>
+      </cac:BillingReferenceLine>
+    </cac:BillingReference>
+    <!-- BT-128 Invoice line object identifier -->
+    <cac:DocumentReference>
+      <cbc:ID schemeID="AVE">LINE-OBJECT-1</cbc:ID>
+      <cbc:DocumentTypeCode>130</cbc:DocumentTypeCode>
+    </cac:DocumentReference>
+    <!-- BG-37 INVOICE LINE DELIVERY INFORMATION and BG-38 INVOICE LINE DELIVER TO ADDRESS -->
+    <cac:Delivery>
+      <cbc:ActualDeliveryDate>2026-01-09</cbc:ActualDeliveryDate>
+      <cac:DeliveryLocation>
+        <cbc:ID schemeID="0088">LINE-LOCATION-1</cbc:ID>
+        <cac:Address>
+          <cbc:StreetName>Line delivery street 7</cbc:StreetName>
+          <cbc:AdditionalStreetName>Gate 3</cbc:AdditionalStreetName>
+          <cbc:CityName>Malmoe</cbc:CityName>
+          <cbc:PostalZone>21120</cbc:PostalZone>
+          <cbc:CountrySubentity>Skane</cbc:CountrySubentity>
+          <cac:AddressLine>
+            <cbc:Line>Line delivery third address line</cbc:Line>
+          </cac:AddressLine>
+          <cac:Country>
+            <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:Address>
+      </cac:DeliveryLocation>
+      <cac:DeliveryParty>
+        <cac:PartyName>
+          <cbc:Name>Line deliver to party</cbc:Name>
+        </cac:PartyName>
+      </cac:DeliveryParty>
+      <!-- BT-198 and BT-199 Invoice line delivery note reference - new in 2026 -->
+      <cac:DeliveryNoteDocumentReference>
+        <cbc:ID>DELNOTE-1</cbc:ID>
+      </cac:DeliveryNoteDocumentReference>
+      <cac:DeliveryNoteLineReference>
+        <cbc:LineID>13</cbc:LineID>
+      </cac:DeliveryNoteLineReference>
+    </cac:Delivery>
+    <!-- BG-28 INVOICE LINE CHARGES AND TAXES with BT-193 and BT-193-1 - new in 2026 -->
+    <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+      <cbc:AllowanceChargeReasonCode listID="5153">ENV</cbc:AllowanceChargeReasonCode>
+      <cbc:AllowanceChargeReason>Line environmental tax</cbc:AllowanceChargeReason>
+      <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+      <cbc:Amount currencyID="EUR">10</cbc:Amount>
+      <cbc:BaseAmount currencyID="EUR">200</cbc:BaseAmount>
+    </cac:AllowanceCharge>
+    <cac:Item>
+      <cbc:Description>Description of item</cbc:Description>
+      <cbc:Name>item name</cbc:Name>
+      <cac:BuyersItemIdentification>
+        <cbc:ID>BUYER-ITEM-1</cbc:ID>
+      </cac:BuyersItemIdentification>
+      <cac:SellersItemIdentification>
+        <cbc:ID>SELLER-ITEM-1</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:StandardItemIdentification>
+        <cbc:ID schemeID="EN">21382183120983</cbc:ID>
+      </cac:StandardItemIdentification>
+      <cac:OriginCountry>
+        <cbc:IdentificationCode>NO</cbc:IdentificationCode>
+      </cac:OriginCountry>
+      <cac:CommodityClassification>
+        <cbc:ItemClassificationCode listID="SRV" listVersionID="19.0501">09348023</cbc:ItemClassificationCode>
+      </cac:CommodityClassification>
+      <!-- BG-30 LINE VAT INFORMATION with BT-194, BT-195 and BT-196 - new in 2026 -->
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID>S</cbc:ID>
+        <cbc:Percent>25.0</cbc:Percent>
+        <cbc:TaxExemptionReasonCode>VATEX-EU-79-C</cbc:TaxExemptionReasonCode>
+        <cbc:TaxExemptionReason>Item exemption reason text</cbc:TaxExemptionReason>
+        <cbc:SupplyTypeCode>4</cbc:SupplyTypeCode>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+      <!-- BG-32 ITEM ATTRIBUTE with BT-211 and BT-212 - new in 2026 -->
+      <cac:AdditionalItemProperty>
+        <cbc:Name>Colour</cbc:Name>
+        <cbc:NameCode>COL</cbc:NameCode>
+        <cbc:Value>Red</cbc:Value>
+      </cac:AdditionalItemProperty>
+      <cac:AdditionalItemProperty>
+        <cbc:Name>Weight</cbc:Name>
+        <cbc:ValueQuantity unitCode="KGM">12.5</cbc:ValueQuantity>
+      </cac:AdditionalItemProperty>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">400</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="DAY">1</cbc:BaseQuantity>
+      <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:Amount currencyID="EUR">10</cbc:Amount>
+        <cbc:BaseAmount currencyID="EUR">410</cbc:BaseAmount>
+      </cac:AllowanceCharge>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice>

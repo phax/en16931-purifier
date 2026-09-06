@@ -29,14 +29,18 @@ The syntax version can therefore **not** be derived from the document itself - i
 
 # Supported EN 16931 editions
 
-| Edition | State | Syntax binding |
-|---------|-------|----------------|
-| `EEN16931Edition.EN2017` | supported | CEN/TS 16931-3-2 (UBL) and CEN/TS 16931-3-3 (CII) |
-| `EEN16931Edition.EN2026` | declared, not yet implemented | the syntax bindings of the 2026 revision are not yet published |
+| Edition | Syntax binding | Syntax versions the binding needs |
+|---------|----------------|-----------------------------------|
+| `EEN16931Edition.EN2017` | CEN/TS 16931-3-2:2017 (UBL) and CEN/TS 16931-3-3:2017 (CII) | UBL 2.1 and CII D16B or later |
+| `EEN16931Edition.EN2026` | CEN/TS 16931-3-2:2026 (UBL) and CEN/TS 16931-3-3:2026 (CII) | UBL 2.5 and CII D25A or later |
 
 The core message of every EN 16931 edition is described by a set of `PurificationRuleSet` objects - one per syntax kind.
-Adding the 2026 revision therefore only means adding new rule sets in the package `com.helger.en16931.purifier.ruleset` and returning them from `EN16931Purifiers.getRuleSet`; neither the engine nor the purifier classes need to change.
-Purifying with `EN2026` currently fails with an error, so that no document is silently purified with the wrong rules.
+`EEN16931Edition.EN2017` is the default; the edition to be used is passed to the purifier constructor respectively to `EN16931Purifiers.createPurifier`.
+
+The 2026 binding uses syntax elements that older syntax versions do not have, so it should only be combined with the UBL 2.5 and the CII D25A purifiers.
+The 2026 revision moved several business terms to a different syntax element, so an instance built against the 2017 edition loses exactly those terms when it is purified with `EN2026` - and the other way around.
+The BT-24 specification identifier of the document tells the editions apart: `urn:cen.eu:en16931:2017` versus `urn:cen.eu:en16931:2026`.
+Use `EEN16931Edition.getFromSpecificationIdentifierOrNull` of [en16931-basics](https://github.com/phax/en16931-basics) to derive the edition from a document.
 
 The edition, the syntax kinds and the document types come from [en16931-basics](https://github.com/phax/en16931-basics), the artefact that holds the facts about the standard itself.
 It is pulled in transitively and needs no separate dependency declaration.
@@ -198,6 +202,17 @@ A few consequences are worth knowing:
 * In CII, `@currencyID` is only part of the core message on `ram:TaxTotalAmount`, where it discriminates BT-110 from BT-111. On all other amounts it is removed.
 * The UBL Credit Note rule set contains the union of the UBL 2.1 and the UBL 2.2+ representation of BT-9 and BT-11, because both of them carry the same business term.
 
+Specific to the 2026 edition:
+
+* In UBL, BT-10 lives in `cac:BuyerAssignedReference` and BT-21 and BT-22 live in `cac:Annotation`. The 2017 locations `cbc:BuyerReference` and `cbc:Note` carry no business term any more and are removed.
+* In UBL, `cac:CardAccount/cbc:NetworkID` is optional since UBL 2.4 and is not a business term, so it is removed. In the UBL 2.1 XML Schema it was mandatory, which is one of the reasons why the 2026 binding needs UBL 2.5.
+* In UBL, BT-32 is discriminated by `cac:TaxScheme/cbc:ID = 'LOC'`; the 2017 rule "any tax scheme that is not `VAT`" no longer applies. A `cac:PartyTaxScheme` without a tax scheme code is still kept for BT-31 and BT-32.
+* In UBL, a `cac:AdditionalDocumentReference` is identified by its `cbc:DocumentTypeCode`: `130` is BT-18 and `916` is BG-24. Other or missing document type codes cannot be assigned to a business term and are removed - the same discrimination that CII already had in 2017.
+* In UBL, the Credit Note binding is a purely mechanical rename of the Invoice binding, so BT-9 and BT-11 no longer have a Credit Note specific representation.
+* In CII, BT-2 and BT-166 share `ram:IssueDateTime/udt:DateTimeString`, discriminated by its `@format`: `102` is the date alone, `208` is the date and the time.
+* In CII, BT-186 and BT-218-1 are printed with a header level path in the source document although they belong to a line level business group. Both the header level and the line level path are part of the core message anyway, so nothing is lost.
+* In UBL, BT-218 is printed as `cbc:IssueTime` in the source document although the business term is a date. `cbc:IssueDate` is whitelisted next to it.
+
 The test suite verifies for every test document that the purified result raises **no EN 16931 validation rule that the source document did not raise already**, and that purifying an already purified document does not remove anything else.
 
 # Building
@@ -218,6 +233,7 @@ v1.1.0 - work in progress
 * Replaced `EEN16931Version` with `EEN16931Edition` of `en16931-basics`; `V2017` is now `EN2017` and `V2026` is now `EN2026`
 * Added class `EN16931Purifiers` taking over `getRuleSet`, `isSupported` and `createPurifier` from the removed enums
 * `AbstractEN16931Purifier.getVersion ()` was renamed to `getEdition ()`
+* Added the syntax bindings of EN 16931:2026 as the new rule sets `EN16931UBLRules2026` and `EN16931CIIRules2026`, so that `EEN16931Edition.EN2026` is now supported for UBL Invoice, UBL Credit Note and CII
 
 v1.0.0 - 2026-09-04
 * Initial version

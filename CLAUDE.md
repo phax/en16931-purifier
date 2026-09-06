@@ -43,7 +43,7 @@ deliberately **not** duplicated here:
 
 ```
 com.helger.en16931.basics       (external, from en16931-basics)
-  EEN16931Edition          EN2017 (implemented), EN2026 (no rule sets yet)
+  EEN16931Edition          EN2017 and EN2026 - both have rule sets
   EEN16931SyntaxKind       UBL_INVOICE, UBL_CREDIT_NOTE, CII - selects the rule set
   EEN16931DocumentType     syntax kind x syntax version, data only
   CEN16931Syntax           namespace URIs, prefixes and document element names
@@ -69,9 +69,15 @@ com.helger.en16931.purifier.rule
   IPurificationSettings    how aggressive the engine works
 
 com.helger.en16931.purifier.ruleset
-  EN16931UBLRules2017      UBL Invoice and UBL Credit Note rule sets
-  EN16931CIIRules2017      CII Cross Industry Invoice rule set
+  EN16931UBLRules2017      UBL Invoice and UBL Credit Note rule sets, EN 16931:2017
+  EN16931CIIRules2017      CII Cross Industry Invoice rule set, EN 16931:2017
+  EN16931UBLRules2026      UBL Invoice and UBL Credit Note rule sets, EN 16931:2026
+  EN16931CIIRules2026      CII Cross Industry Invoice rule set, EN 16931:2026
 ```
+
+The 2017 rule sets work with every UBL 2.x respectively every CII version. The 2026 rule sets are
+bound to UBL 2.5 and CII D25A, because the 2026 binding uses syntax elements that older versions
+do not have.
 
 ### Purification Flow
 
@@ -84,9 +90,11 @@ com.helger.en16931.purifier.ruleset
 
 ### Adding a new EN 16931 edition
 
-Add a `EN16931xxxRules2026` class in `com.helger.en16931.purifier.ruleset` and return the rule sets
-from `EN16931Purifiers.getRuleSet`. `isSupported` derives itself from that, so nothing else needs
-to be flipped, and neither the engine nor any purifier class needs to change.
+Add a `EN16931UBLRulesXXXX` and a `EN16931CIIRulesXXXX` class in
+`com.helger.en16931.purifier.ruleset`, add the constant to `EEN16931Edition` **in en16931-basics**
+and return the rule sets from `EN16931Purifiers.getRuleSet`. `isSupported` derives itself from
+that, so nothing else needs to be flipped, and neither the engine nor any purifier class needs to
+change.
 
 ### Adding a new syntax version
 
@@ -97,8 +105,8 @@ versions and all CII versions use the same XML namespace URIs and element names.
 
 ## Rule Set Authoring
 
-The rule sets are a direct transcription of `docs/en16931-2017-syntax.md`, which contains the
-three-way mapping of every business term to its UBL Invoice, UBL Credit Note and CII path.
+The rule sets are a direct transcription of the three-way mapping of every business term to its
+UBL Invoice, UBL Credit Note and CII path (see the Field Mapping Reference below).
 
 - Every rule carries the business term ID, the path, the EN 16931 cardinality and the allowed attributes
 - Intermediate elements of a path are whitelisted implicitly
@@ -133,4 +141,9 @@ three-way mapping of every business term to its UBL Invoice, UBL Credit Note and
 
 ## Field Mapping Reference
 
-`docs/en16931-2017-syntax.md` contains the complete EN 16931:2017 field mapping with BT identifiers.
+The field mappings with the BT identifiers are not part of this repository:
+
+- EN 16931:2017 — `../en16931-cii2ubl/docs/en16931-2017-syntax.md`
+- EN 16931:2026 — the extraction of the CEN/TC 434 draft deliverables of CEN/TS 16931-3-2:2026 and
+  CEN/TS 16931-3-3:2026 (`~/svn-philip/AustrianStandards/TC 434/EN 2026/3/extraction.md`); the
+  copy in `../en16931-cii2ubl/docs/en16931-2026-syntax.md` is an older and shorter revision

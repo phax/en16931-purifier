@@ -318,6 +318,16 @@ public class EN16931PurifierCLI implements Callable <Integer>
 
       _verboseLog ( () -> "Determined the document to be a " + eDocType.getDisplayName ());
 
+      // The syntax binding of an edition may use syntax elements that an older syntax version
+      // does not have at all
+      if (eDocType.getEdition () != eEdition)
+        LOGGER.warn ("The syntax binding of " +
+                     eEdition.getDisplayName () +
+                     " is based on the syntax version '" +
+                     eEdition.getDocumentType (eDocType.getSyntaxKind ()).getSyntaxVersion () +
+                     "' but the document is handled as a " +
+                     eDocType.getDisplayName ());
+
       final AbstractEN16931Purifier <?, ?> aPurifier = EN16931Purifiers.createPurifier (eDocType, eEdition);
       aPurifier.setRemoveNonCoreAttributes (m_bRemoveNonCoreAttributes)
                .setRemoveEmptyElements (m_bRemoveEmptyElements)

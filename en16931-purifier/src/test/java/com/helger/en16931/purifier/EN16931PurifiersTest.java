@@ -18,17 +18,14 @@
 package com.helger.en16931.purifier;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-
 import org.junit.Test;
 
-import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.en16931.basics.EEN16931DocumentType;
 import com.helger.en16931.basics.EEN16931Edition;
 import com.helger.en16931.basics.EEN16931SyntaxKind;
@@ -42,35 +39,30 @@ import com.helger.en16931.purifier.rule.PurificationRuleSet;
 public final class EN16931PurifiersTest
 {
   @Test
-  public void testAllRuleSetsOf2017 ()
+  public void testAllRuleSets ()
   {
-    for (final EEN16931SyntaxKind eSyntaxKind : EEN16931SyntaxKind.values ())
+    for (final EEN16931Edition eEdition : EEN16931Edition.values ())
     {
-      final PurificationRuleSet aRuleSet = EN16931Purifiers.getRuleSet (EEN16931Edition.EN2017, eSyntaxKind);
-      assertNotNull ("No rule set for " + eSyntaxKind, aRuleSet);
-      assertEquals (eSyntaxKind.getRootElementName (), aRuleSet.getRootElementName ());
-      assertTrue (aRuleSet.getRootNode ().hasChildren ());
+      for (final EEN16931SyntaxKind eSyntaxKind : EEN16931SyntaxKind.values ())
+      {
+        final PurificationRuleSet aRuleSet = EN16931Purifiers.getRuleSet (eEdition, eSyntaxKind);
+        assertNotNull ("No rule set for " + eEdition + " and " + eSyntaxKind, aRuleSet);
+        assertEquals (eSyntaxKind.getRootElementName (), aRuleSet.getRootElementName ());
+        assertTrue (aRuleSet.getRootNode ().hasChildren ());
+      }
+      assertTrue (EN16931Purifiers.isSupported (eEdition));
     }
-    assertTrue (EN16931Purifiers.isSupported (EEN16931Edition.EN2017));
     assertSame (EEN16931Edition.EN2017, EN16931Purifiers.DEFAULT_EDITION);
   }
 
   @Test
-  public void testNoRuleSetsOf2026 ()
+  public void testRuleSetIDsAreUnique ()
   {
-    assertFalse (EN16931Purifiers.isSupported (EEN16931Edition.EN2026));
-    for (final EEN16931SyntaxKind eSyntaxKind : EEN16931SyntaxKind.values ())
-      assertNull (EN16931Purifiers.getRuleSet (EEN16931Edition.EN2026, eSyntaxKind));
-  }
-
-  @Test
-  public void testPurifyWith2026Fails ()
-  {
-    final ErrorList aErrorList = new ErrorList ();
-    final UBL21InvoicePurifier aPurifier = new UBL21InvoicePurifier (EEN16931Edition.EN2026);
-    assertNull (aPurifier.getRuleSet ());
-    assertNull (aPurifier.purify (new File (MockTestFiles.UBL_INVOICE_DIR, "base-example.xml"), aErrorList));
-    assertTrue (aErrorList.containsAtLeastOneError ());
+    final ICommonsSet <String> aIDs = new CommonsHashSet <> ();
+    for (final EEN16931Edition eEdition : EEN16931Edition.values ())
+      for (final EEN16931SyntaxKind eSyntaxKind : EEN16931SyntaxKind.values ())
+        assertTrue ("Duplicate rule set ID for " + eEdition + " and " + eSyntaxKind,
+                    aIDs.add (EN16931Purifiers.getRuleSet (eEdition, eSyntaxKind).getID ()));
   }
 
   @Test
@@ -78,10 +70,14 @@ public final class EN16931PurifiersTest
   {
     for (final EEN16931DocumentType e : EEN16931DocumentType.values ())
     {
-      final AbstractEN16931Purifier <?, ?> aPurifier = EN16931Purifiers.createPurifier (e, EEN16931Edition.EN2017);
-      assertNotNull (aPurifier);
-      assertSame (e.getSyntaxKind (), aPurifier.getSyntaxKind ());
-      assertSame (EEN16931Edition.EN2017, aPurifier.getEdition ());
+      for (final EEN16931Edition eEdition : EEN16931Edition.values ())
+      {
+        final AbstractEN16931Purifier <?, ?> aPurifier = EN16931Purifiers.createPurifier (e, eEdition);
+        assertNotNull (aPurifier);
+        assertSame (e.getSyntaxKind (), aPurifier.getSyntaxKind ());
+        assertSame (eEdition, aPurifier.getEdition ());
+        assertNotNull (aPurifier.getRuleSet ());
+      }
 
       final AbstractEN16931Purifier <?, ?> aDefaultPurifier = EN16931Purifiers.createPurifier (e);
       assertNotNull (aDefaultPurifier);
