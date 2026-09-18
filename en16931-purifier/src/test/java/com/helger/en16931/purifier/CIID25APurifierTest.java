@@ -22,8 +22,8 @@ import java.io.File;
 import org.junit.Test;
 
 /**
- * Test class for class {@link CIID25APurifier}. All CII versions share the same XML namespace
- * URIs, so the CII D16B test files can be used as CII D25A documents as well.
+ * Test class for class {@link CIID25APurifier}. All CII versions share the same XML namespace URIs,
+ * so the CII D16B test files can be used as CII D25A documents as well.
  *
  * @author Philip Helger
  */

@@ -74,17 +74,27 @@ public abstract class AbstractPurifierFuncTest
     final T aPurified = aPurifier.purify (aSrcFile, aErrorList);
     assertNotNull ("Failed to purify '" + aSrcFile.getPath () + "': " + _getAsString (aErrorList.getAllErrors ()),
                    aPurified);
-    assertEquals ("Purifying '" + aSrcFile.getPath () + "' created errors: " +
-                  _getAsString (aErrorList.getAllErrors ()), 0, aErrorList.getAllErrors ().size ());
+    assertEquals ("Purifying '" +
+                  aSrcFile.getPath () +
+                  "' created errors: " +
+                  _getAsString (aErrorList.getAllErrors ()),
+                  0,
+                  aErrorList.getAllErrors ().size ());
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Purified '" + aSrcFile.getPath () + "' and removed " + _getAllRemovals (aErrorList).size () + " items");
+      LOGGER.debug ("Purified '" +
+                    aSrcFile.getPath () +
+                    "' and removed " +
+                    _getAllRemovals (aErrorList).size () +
+                    " items");
 
     // The purified object must be serializable
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       final ErrorList aWriteErrors = new ErrorList ();
-      assertTrue ("Failed to write the purified '" + aSrcFile.getPath () + "': " +
+      assertTrue ("Failed to write the purified '" +
+                  aSrcFile.getPath () +
+                  "': " +
                   _getAsString (aWriteErrors.getAllErrors ()),
                   aPurifier.write (aPurified, aBAOS, aWriteErrors).isSuccess ());
       assertTrue (aBAOS.size () > 0);
@@ -95,7 +105,10 @@ public abstract class AbstractPurifierFuncTest
     final T aPurified2 = aPurifier.purify (aPurified, aErrorList2);
     assertNotNull (aPurified2);
     final ICommonsList <IError> aRemovals = _getAllRemovals (aErrorList2);
-    assertTrue ("Purifying the already purified '" + aSrcFile.getPath () + "' removed more content: " +
-                _getAsString (aRemovals), aRemovals.isEmpty ());
+    assertTrue ("Purifying the already purified '" +
+                aSrcFile.getPath () +
+                "' removed more content: " +
+                _getAsString (aRemovals),
+                aRemovals.isEmpty ());
   }
 }

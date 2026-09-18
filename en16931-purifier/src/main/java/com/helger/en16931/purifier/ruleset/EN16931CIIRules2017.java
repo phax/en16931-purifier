@@ -175,11 +175,7 @@ public final class EN16931CIIRules2017
     aB.add ("BT-160", PRODUCT + "/ram:ApplicableProductCharacteristic/ram:Description", ONCE);
     aB.add ("BT-161", PRODUCT + "/ram:ApplicableProductCharacteristic/ram:Value", ONCE);
     aB.add ("BT-158", PRODUCT + "/ram:DesignatedProductClassification", UNBOUNDED);
-    aB.add ("BT-158",
-            PRODUCT + "/ram:DesignatedProductClassification/ram:ClassCode",
-            ONCE,
-            "listID",
-            "listVersionID");
+    aB.add ("BT-158", PRODUCT + "/ram:DesignatedProductClassification/ram:ClassCode", ONCE, "listID", "listVersionID");
     aB.add ("BT-159", PRODUCT + "/ram:OriginTradeCountry", ONCE);
     aB.add ("BT-159", PRODUCT + "/ram:OriginTradeCountry/ram:ID", ONCE);
 
@@ -488,8 +484,7 @@ public final class EN16931CIIRules2017
   @NonNull
   private static PurificationRuleSet _createRuleSet ()
   {
-    final PurificationRuleSetBuilder aB = new PurificationRuleSetBuilder ("en16931-2017-cii",
-                                                                          CEN16931Syntax.QNAME_CII);
+    final PurificationRuleSetBuilder aB = new PurificationRuleSetBuilder ("en16931-2017-cii", CEN16931Syntax.QNAME_CII);
     aB.addNamespacePrefix (CEN16931Syntax.PREFIX_CII_RSM, CEN16931Syntax.NS_URI_CII_RSM);
     aB.addNamespacePrefix (CEN16931Syntax.PREFIX_CII_RAM, CEN16931Syntax.NS_URI_CII_RAM);
     aB.addNamespacePrefix (CEN16931Syntax.PREFIX_CII_UDT, CEN16931Syntax.NS_URI_CII_UDT);

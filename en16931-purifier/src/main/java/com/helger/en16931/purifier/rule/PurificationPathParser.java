@@ -44,10 +44,9 @@ import com.helger.collection.commons.ICommonsList;
  * /cac:AccountingSupplierParty/cac:Party/cac:PartyTaxScheme[cac:TaxScheme/cbc:ID='VAT']
  * </pre>
  *
- * The supported predicates are <code>relative/path='value'</code>,
- * <code>not(relative/path)</code> and <code>relative/path</code> for elements, and the same three
- * forms with a trailing <code>/@attribute</code> respectively a leading <code>@attribute</code>
- * for attributes.
+ * The supported predicates are <code>relative/path='value'</code>, <code>not(relative/path)</code>
+ * and <code>relative/path</code> for elements, and the same three forms with a trailing
+ * <code>/@attribute</code> respectively a leading <code>@attribute</code> for attributes.
  *
  * @author Philip Helger
  */

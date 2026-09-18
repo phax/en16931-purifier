@@ -75,7 +75,7 @@ public final class PurificationPathParserTest
   public void testChildValuePredicate ()
   {
     final ICommonsList <PathStep> aSteps = PurificationPathParser.parsePath ("/cac:Ref[cbc:TypeCode='130']/cbc:ID",
-                                                                            PREFIX_MAP);
+                                                                             PREFIX_MAP);
     assertEquals (2, aSteps.size ());
     final IPurificationElementFilter aFilter = aSteps.get (0).getFilter ();
     assertNotNull (aFilter);
@@ -100,7 +100,7 @@ public final class PurificationPathParserTest
   public void testNestedPredicatePath ()
   {
     final ICommonsList <PathStep> aSteps = PurificationPathParser.parsePath ("/cac:Party[cac:Scheme/cbc:ID='VAT']",
-                                                                            PREFIX_MAP);
+                                                                             PREFIX_MAP);
     final IPurificationElementFilter aFilter = aSteps.get (0).getFilter ();
     assertNotNull (aFilter);
     assertEquals ("Scheme/ID='VAT'", aFilter.getDescription ());
@@ -112,7 +112,7 @@ public final class PurificationPathParserTest
   public void testAttributePredicate ()
   {
     final ICommonsList <PathStep> aSteps = PurificationPathParser.parsePath ("/cac:Reg[cbc:ID/@schemeID='VA']",
-                                                                            PREFIX_MAP);
+                                                                             PREFIX_MAP);
     final IPurificationElementFilter aFilter = aSteps.get (0).getFilter ();
     assertNotNull (aFilter);
     assertEquals ("ID/@schemeID='VA'", aFilter.getDescription ());
@@ -125,7 +125,7 @@ public final class PurificationPathParserTest
   public void testAttributeAbsentPredicate ()
   {
     final ICommonsList <PathStep> aSteps = PurificationPathParser.parsePath ("/cac:Reg[not(cbc:ID/@schemeID)]",
-                                                                            PREFIX_MAP);
+                                                                             PREFIX_MAP);
     final IPurificationElementFilter aFilter = aSteps.get (0).getFilter ();
     assertNotNull (aFilter);
     assertEquals ("not(ID/@schemeID)", aFilter.getDescription ());
@@ -137,7 +137,7 @@ public final class PurificationPathParserTest
   public void testOwnAttributePredicate ()
   {
     final ICommonsList <PathStep> aSteps = PurificationPathParser.parsePath ("/cbc:Amount[@currencyID='EUR']",
-                                                                            PREFIX_MAP);
+                                                                             PREFIX_MAP);
     final IPurificationElementFilter aFilter = aSteps.get (0).getFilter ();
     assertNotNull (aFilter);
     assertEquals ("@currencyID='EUR'", aFilter.getDescription ());

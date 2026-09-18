@@ -33,9 +33,9 @@ import com.helger.en16931.purifier.rule.PurificationRuleSetBuilder;
  * created by this class are valid for all UBL 2.x versions, because all of them use the same XML
  * namespace URIs and the same element names.
  * <p>
- * The UBL Credit Note rule set contains the union of the UBL 2.1 and the UBL 2.2+ representation
- * of BT-9 and BT-11, because both of them carry the same business term. In a UBL 2.1 Credit Note
- * the UBL 2.2+ elements cannot occur without breaking the XML Schema validation anyway.
+ * The UBL Credit Note rule set contains the union of the UBL 2.1 and the UBL 2.2+ representation of
+ * BT-9 and BT-11, because both of them carry the same business term. In a UBL 2.1 Credit Note the
+ * UBL 2.2+ elements cannot occur without breaking the XML Schema validation anyway.
  *
  * @author Philip Helger
  */
@@ -192,11 +192,7 @@ public final class EN16931UBLRules2017
     aB.add ("BT-122", ADR_BG24 + "/cbc:ID", ONCE);
     aB.add ("BT-123", ADR_BG24 + "/cbc:DocumentDescription", ONCE);
     aB.add ("BT-125", ADR_BG24 + "/cac:Attachment", ONCE);
-    aB.add ("BT-125",
-            ADR_BG24 + "/cac:Attachment/cbc:EmbeddedDocumentBinaryObject",
-            ONCE,
-            "mimeCode",
-            "filename");
+    aB.add ("BT-125", ADR_BG24 + "/cac:Attachment/cbc:EmbeddedDocumentBinaryObject", ONCE, "mimeCode", "filename");
     aB.add ("BT-124", ADR_BG24 + "/cac:Attachment/cac:ExternalReference", ONCE);
     aB.add ("BT-124", ADR_BG24 + "/cac:Attachment/cac:ExternalReference/cbc:URI", ONCE);
   }

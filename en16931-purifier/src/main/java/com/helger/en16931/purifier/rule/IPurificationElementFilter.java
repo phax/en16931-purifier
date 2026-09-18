@@ -24,9 +24,9 @@ import com.helger.annotation.Nonempty;
 
 /**
  * Filter to discriminate multiple rules that use the same XML element name but differ in the
- * business terms they carry. A typical example is
- * <code>cac:AdditionalDocumentReference</code> that is BT-18 if it contains a
- * <code>cbc:DocumentTypeCode</code> with value <code>130</code> and BG-24 if it does not.
+ * business terms they carry. A typical example is <code>cac:AdditionalDocumentReference</code> that
+ * is BT-18 if it contains a <code>cbc:DocumentTypeCode</code> with value <code>130</code> and BG-24
+ * if it does not.
  *
  * @author Philip Helger
  */

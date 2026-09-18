@@ -35,13 +35,12 @@ import com.helger.en16931.purifier.rule.PurificationRuleSetBuilder;
  * document states that "only UBL 2.5 and any subsequent UBL 2.x version have all syntax elements
  * which are needed for the current revision EN 16931-1:2026". Several business terms moved to
  * elements that do not exist in UBL 2.1 at all - BT-10 to <code>cac:BuyerAssignedReference</code>,
- * BT-21 and BT-22 to <code>cac:Annotation</code>, BG-34 to
- * <code>cac:CollectionInvoiceLine</code> - and <code>cac:CardAccount/cbc:NetworkID</code>, which
- * is mandatory in the UBL 2.1 XML Schema, is neither a business term nor mandatory any more and is
- * therefore removed.
+ * BT-21 and BT-22 to <code>cac:Annotation</code>, BG-34 to <code>cac:CollectionInvoiceLine</code> -
+ * and <code>cac:CardAccount/cbc:NetworkID</code>, which is mandatory in the UBL 2.1 XML Schema, is
+ * neither a business term nor mandatory any more and is therefore removed.
  * <p>
- * In the 2026 edition the Credit Note binding is a purely mechanical rename of the Invoice
- * binding, so both rule sets are created by the same method: <code>/Invoice</code> becomes
+ * In the 2026 edition the Credit Note binding is a purely mechanical rename of the Invoice binding,
+ * so both rule sets are created by the same method: <code>/Invoice</code> becomes
  * <code>/CreditNote</code>, <code>cac:InvoiceLine</code> becomes <code>cac:CreditNoteLine</code>,
  * <code>cac:CollectionInvoiceLine</code> becomes <code>cac:CollectionCreditNoteLine</code>,
  * <code>cbc:InvoicedQuantity</code> becomes <code>cbc:CreditedQuantity</code> and
@@ -202,11 +201,7 @@ public final class EN16931UBLRules2026
     aB.add ("BT-122-1", ADR_BG24 + "/cbc:DocumentTypeCode", ONCE, "listID");
     aB.add ("BT-123", ADR_BG24 + "/cbc:DocumentDescription", ONCE);
     aB.add ("BT-125", ADR_BG24 + "/cac:Attachment", ONCE);
-    aB.add ("BT-125",
-            ADR_BG24 + "/cac:Attachment/cbc:EmbeddedDocumentBinaryObject",
-            ONCE,
-            "mimeCode",
-            "filename");
+    aB.add ("BT-125", ADR_BG24 + "/cac:Attachment/cbc:EmbeddedDocumentBinaryObject", ONCE, "mimeCode", "filename");
     aB.add ("BT-124", ADR_BG24 + "/cac:Attachment/cac:ExternalReference", ONCE);
     aB.add ("BT-124", ADR_BG24 + "/cac:Attachment/cac:ExternalReference/cbc:URI", ONCE);
   }
@@ -292,10 +287,7 @@ public final class EN16931UBLRules2026
     aB.add ("BG-27-1/BG-28-1", sLine + "/cac:AllowanceCharge/cbc:ChargeIndicator", ONCE);
     // BT-193 Invoice line-level non-VAT tax type code shares the element with BT-140 and BT-145
     // and is discriminated by BT-193-1, the @listID
-    aB.add ("BT-140/BT-145/BT-193",
-            sLine + "/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode",
-            ONCE,
-            "listID");
+    aB.add ("BT-140/BT-145/BT-193", sLine + "/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode", ONCE, "listID");
     aB.add ("BT-139/BT-144", sLine + "/cac:AllowanceCharge/cbc:AllowanceChargeReason", ONCE);
     aB.add ("BT-138/BT-143", sLine + "/cac:AllowanceCharge/cbc:MultiplierFactorNumeric", ONCE);
     aB.add ("BT-136/BT-141", sLine + "/cac:AllowanceCharge/cbc:Amount", ONCE, "currencyID");

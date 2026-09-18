@@ -153,10 +153,10 @@ public class EN16931PurifierCLI implements Callable <Integer>
   @NonNull
   private String _normalizeOutputDirectory (@NonNull final String sDirectory)
   {
-    _verboseLog ( () -> "CLI option output directory '" + sDirectory + "'");
+    _verboseLog (() -> "CLI option output directory '" + sDirectory + "'");
     final String ret = Paths.get (sDirectory).toAbsolutePath ().normalize ().toString ();
     if (!sDirectory.equals (ret))
-      _verboseLog ( () -> "Normalized output directory '" + ret + "'");
+      _verboseLog (() -> "Normalized output directory '" + ret + "'");
     return ret;
   }
 
@@ -180,12 +180,12 @@ public class EN16931PurifierCLI implements Callable <Integer>
       {
         // Make search pattern absolute
         final String sRealName = new File (sFilename).getAbsolutePath ();
-        _verboseLog ( () -> "Trying to resolve wildcards for '" + sRealName + "'");
+        _verboseLog (() -> "Trying to resolve wildcards for '" + sRealName + "'");
         final PathMatcher matcher = FileSystems.getDefault ().getPathMatcher ("glob:" + sRealName);
         for (final File f : new FileSystemRecursiveIterator (aRootDir))
           if (matcher.matches (f.toPath ()))
           {
-            _verboseLog ( () -> "  Found wildcard match '" + f + "'");
+            _verboseLog (() -> "  Found wildcard match '" + f + "'");
             ret.add (f);
           }
       }
@@ -202,13 +202,13 @@ public class EN16931PurifierCLI implements Callable <Integer>
     if (m_bDisableWildcardExpansion)
     {
       aFiles = new CommonsArrayList <> (aFilenames, File::new);
-      _verboseLog ( () -> "Using the input files '" + aFiles + "'");
+      _verboseLog (() -> "Using the input files '" + aFiles + "'");
     }
     else
     {
-      _verboseLog ( () -> "Normalizing the input files '" + aFilenames + "'");
+      _verboseLog (() -> "Normalizing the input files '" + aFilenames + "'");
       aFiles = _resolveWildcards (aFilenames);
-      _verboseLog ( () -> "Resolved wildcards of input files to '" + aFiles + "'");
+      _verboseLog (() -> "Resolved wildcards of input files to '" + aFiles + "'");
     }
 
     final ICommonsList <File> ret = new CommonsArrayList <> ();
@@ -217,7 +217,7 @@ public class EN16931PurifierCLI implements Callable <Integer>
     {
       if (aFile.isDirectory ())
       {
-        _verboseLog ( () -> "Input '" + aFile.toString () + "' is a Directory");
+        _verboseLog (() -> "Input '" + aFile.toString () + "' is a Directory");
         // collecting readable and normalized absolute path files
         for (final File aChildFile : new FileSystemIterator (aFile))
         {
@@ -225,7 +225,7 @@ public class EN16931PurifierCLI implements Callable <Integer>
           if (Files.isReadable (p) && !Files.isDirectory (p))
           {
             ret.add (_normalizeFile (p));
-            _verboseLog ( () -> "Added file '" + ret.getLastOrNull ().toString () + "'");
+            _verboseLog (() -> "Added file '" + ret.getLastOrNull ().toString () + "'");
           }
         }
       }
@@ -233,14 +233,14 @@ public class EN16931PurifierCLI implements Callable <Integer>
         // Does not need to be file - only needs to be readable
         if (aFile.canRead ())
         {
-          _verboseLog ( () -> "Input '" + aFile.toString () + "' is a readable File");
+          _verboseLog (() -> "Input '" + aFile.toString () + "' is a readable File");
           ret.add (_normalizeFile (aFile.toPath ()));
         }
         else
           LOGGER.warn ("Ignoring non-existing file " + aFile.getAbsolutePath ());
     }
 
-    _verboseLog ( () -> "Purifying the following files: " + ret.getAllMapped (File::getAbsolutePath));
+    _verboseLog (() -> "Purifying the following files: " + ret.getAllMapped (File::getAbsolutePath));
     return ret;
   }
 
@@ -316,7 +316,7 @@ public class EN16931PurifierCLI implements Callable <Integer>
         continue;
       }
 
-      _verboseLog ( () -> "Determined the document to be a " + eDocType.getDisplayName ());
+      _verboseLog (() -> "Determined the document to be a " + eDocType.getDisplayName ());
 
       // The syntax binding of an edition may use syntax elements that an older syntax version
       // does not have at all

@@ -220,8 +220,8 @@ public final class PurificationEngine
    * @param aErrorList
    *        The error list to be filled. Every removal is added as an information entry. May not be
    *        <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if the document could be purified, {@link ESuccess#FAILURE}
-   *         if the document element does not match the rule set.
+   * @return {@link ESuccess#SUCCESS} if the document could be purified, {@link ESuccess#FAILURE} if
+   *         the document element does not match the rule set.
    */
   @NonNull
   public static ESuccess purify (@NonNull final Document aDoc,

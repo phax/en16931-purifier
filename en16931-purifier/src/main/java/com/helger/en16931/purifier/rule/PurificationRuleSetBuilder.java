@@ -115,11 +115,11 @@ public class PurificationRuleSetBuilder
    * @param sPath
    *        The path relative to the document element. May neither be <code>null</code> nor empty.
    * @param nMaxOccurs
-   *        The maximum number of occurrences within a single parent element as defined by EN
-   *        16931. Use {@link PurificationRuleNode#UNBOUNDED} for an unlimited number.
+   *        The maximum number of occurrences within a single parent element as defined by EN 16931.
+   *        Use {@link PurificationRuleNode#UNBOUNDED} for an unlimited number.
    * @param aAllowedAttributes
-   *        The local names of all attributes that are part of the EN 16931 core message or
-   *        required by the XML Schema. May be <code>null</code> or empty.
+   *        The local names of all attributes that are part of the EN 16931 core message or required
+   *        by the XML Schema. May be <code>null</code> or empty.
    * @return this for chaining
    */
   @NonNull
@@ -134,9 +134,9 @@ public class PurificationRuleSetBuilder
 
   /**
    * Whitelist a single path like {@link #add(String, String, int, String...)} does, but keep the
-   * element even if it is empty after the purification. This must be used for all elements that
-   * are mandatory in the XML Schema of the surrounding element, because removing them would create
-   * XSD invalid output.
+   * element even if it is empty after the purification. This must be used for all elements that are
+   * mandatory in the XML Schema of the surrounding element, because removing them would create XSD
+   * invalid output.
    *
    * @param sBusinessTermID
    *        The ID of the business term or business group carried by this element. May be
@@ -144,8 +144,8 @@ public class PurificationRuleSetBuilder
    * @param sPath
    *        The path relative to the document element. May neither be <code>null</code> nor empty.
    * @param nMaxOccurs
-   *        The maximum number of occurrences within a single parent element as defined by EN
-   *        16931. Use {@link PurificationRuleNode#UNBOUNDED} for an unlimited number.
+   *        The maximum number of occurrences within a single parent element as defined by EN 16931.
+   *        Use {@link PurificationRuleNode#UNBOUNDED} for an unlimited number.
    * @param aAllowedAttributes
    *        The local names of all allowed attributes. May be <code>null</code> or empty.
    * @return this for chaining

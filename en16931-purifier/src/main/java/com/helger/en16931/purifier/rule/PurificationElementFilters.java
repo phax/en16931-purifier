@@ -182,8 +182,8 @@ public final class PurificationElementFilters
   }
 
   /**
-   * Create a filter that matches if an attribute of a relative child element exists and has
-   * exactly the provided value.
+   * Create a filter that matches if an attribute of a relative child element exists and has exactly
+   * the provided value.
    *
    * @param aRelativePath
    *        The relative element path to be resolved. May be empty to address the element itself.
@@ -222,8 +222,8 @@ public final class PurificationElementFilters
   }
 
   /**
-   * Create a filter that matches if an attribute of a relative child element exists, independent
-   * of its value.
+   * Create a filter that matches if an attribute of a relative child element exists, independent of
+   * its value.
    *
    * @param aRelativePath
    *        The relative element path to be resolved. May be empty to address the element itself.
@@ -258,8 +258,7 @@ public final class PurificationElementFilters
   }
 
   /**
-   * Create a filter that matches if an attribute of a relative child element does <b>not</b>
-   * exist.
+   * Create a filter that matches if an attribute of a relative child element does <b>not</b> exist.
    *
    * @param aRelativePath
    *        The relative element path to be resolved. May be empty to address the element itself.

@@ -199,11 +199,7 @@ public final class EN16931CIIRules2026
     aB.add ("BT-161", PRODUCT + "/ram:ApplicableProductCharacteristic/ram:Value", ONCE);
     aB.add ("BT-161", PRODUCT + "/ram:ApplicableProductCharacteristic/ram:ValueMeasure", ONCE, "unitCode");
     aB.add ("BT-158", PRODUCT + "/ram:DesignatedProductClassification", UNBOUNDED);
-    aB.add ("BT-158",
-            PRODUCT + "/ram:DesignatedProductClassification/ram:ClassCode",
-            ONCE,
-            "listID",
-            "listVersionID");
+    aB.add ("BT-158", PRODUCT + "/ram:DesignatedProductClassification/ram:ClassCode", ONCE, "listID", "listVersionID");
     aB.add ("BT-159", PRODUCT + "/ram:OriginTradeCountry", ONCE);
     aB.add ("BT-159", PRODUCT + "/ram:OriginTradeCountry/ram:ID", ONCE);
 
@@ -280,11 +276,7 @@ public final class EN16931CIIRules2026
     aB.add ("BT-136/BT-141", sLineAllowanceCharge + "/ram:ActualAmount", ONCE);
     // BT-193 Invoice line-level non-VAT tax type code shares the element with BT-140 and BT-145
     // and requires @listID (BT-193-1) and @listAgencyID, see CII-DT-102 and CII-DT-103
-    aB.add ("BT-140/BT-145/BT-193",
-            sLineAllowanceCharge + "/ram:ReasonCode",
-            ONCE,
-            "listID",
-            "listAgencyID");
+    aB.add ("BT-140/BT-145/BT-193", sLineAllowanceCharge + "/ram:ReasonCode", ONCE, "listID", "listAgencyID");
     aB.add ("BT-139/BT-144", sLineAllowanceCharge + "/ram:Reason", ONCE);
     // BT-131 Invoice line net amount
     aB.add ("BT-131", LINE_SETTLEMENT + "/ram:SpecifiedTradeSettlementLineMonetarySummation", ONCE);
@@ -604,8 +596,7 @@ public final class EN16931CIIRules2026
   @NonNull
   private static PurificationRuleSet _createRuleSet ()
   {
-    final PurificationRuleSetBuilder aB = new PurificationRuleSetBuilder ("en16931-2026-cii",
-                                                                          CEN16931Syntax.QNAME_CII);
+    final PurificationRuleSetBuilder aB = new PurificationRuleSetBuilder ("en16931-2026-cii", CEN16931Syntax.QNAME_CII);
     aB.addNamespacePrefix (CEN16931Syntax.PREFIX_CII_RSM, CEN16931Syntax.NS_URI_CII_RSM);
     aB.addNamespacePrefix (CEN16931Syntax.PREFIX_CII_RAM, CEN16931Syntax.NS_URI_CII_RAM);
     aB.addNamespacePrefix (CEN16931Syntax.PREFIX_CII_UDT, CEN16931Syntax.NS_URI_CII_UDT);

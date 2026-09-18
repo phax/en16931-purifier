@@ -93,8 +93,8 @@ public class PurificationRuleNode
 
   /**
    * @return The ID of the business term or business group this node belongs to (e.g.
-   *         <code>BT-1</code>). May be <code>null</code> for elements that are only required by
-   *         the XML Schema but do not carry a business term themselves.
+   *         <code>BT-1</code>). May be <code>null</code> for elements that are only required by the
+   *         XML Schema but do not carry a business term themselves.
    */
   @Nullable
   public final String getBusinessTermID ()
@@ -121,7 +121,7 @@ public class PurificationRuleNode
   @NonNull
   public final PurificationRuleNode setMaxOccurs (final int nMaxOccurs)
   {
-    ValueEnforcer.isTrue ( () -> nMaxOccurs == UNBOUNDED || nMaxOccurs > 0, "MaxOccurs must be > 0 or UNBOUNDED");
+    ValueEnforcer.isTrue (() -> nMaxOccurs == UNBOUNDED || nMaxOccurs > 0, "MaxOccurs must be > 0 or UNBOUNDED");
     m_nMaxOccurs = nMaxOccurs;
     return this;
   }
@@ -182,8 +182,8 @@ public class PurificationRuleNode
   }
 
   /**
-   * Find the existing child node with the provided element name and filter description, or create
-   * a new one. This is only to be used while building a rule set.
+   * Find the existing child node with the provided element name and filter description, or create a
+   * new one. This is only to be used while building a rule set.
    *
    * @param aElementName
    *        The XML element name to search. May not be <code>null</code>.
@@ -224,8 +224,8 @@ public class PurificationRuleNode
   }
 
   /**
-   * Find the child node that matches the provided element. Nodes with a filter take precedence
-   * over nodes without a filter, so that the more specific rule always wins.
+   * Find the child node that matches the provided element. Nodes with a filter take precedence over
+   * nodes without a filter, so that the more specific rule always wins.
    *
    * @param aElement
    *        The element to be matched. May not be <code>null</code>.

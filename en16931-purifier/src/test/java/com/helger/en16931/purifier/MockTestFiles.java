@@ -63,7 +63,7 @@ final class MockTestFiles
       throw new IllegalStateException ("The test directory '" + aDir.getAbsolutePath () + "' contains no XML file");
 
     // Ensure a deterministic order
-    ret.sort ( (x, y) -> x.getAbsolutePath ().compareTo (y.getAbsolutePath ()));
+    ret.sort ((x, y) -> x.getAbsolutePath ().compareTo (y.getAbsolutePath ()));
     return ret;
   }
 
