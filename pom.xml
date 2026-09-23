@@ -58,7 +58,7 @@
 
   <properties>
     <en16931-basics.version>1.0.1</en16931-basics.version>
-    <phive-rules.version>4.5.6</phive-rules.version>
+    <phive-rules.version>4.6.0</phive-rules.version>
     <picocli.version>4.7.7</picocli.version>
   </properties>
 
@@ -81,7 +81,7 @@
       <dependency>
         <groupId>com.helger.cii</groupId>
         <artifactId>ph-cii-parent-pom</artifactId>
-        <version>4.1.2</version>
+        <version>4.1.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
