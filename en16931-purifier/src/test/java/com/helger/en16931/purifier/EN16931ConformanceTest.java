@@ -113,7 +113,7 @@ public final class EN16931ConformanceTest
   public void testUBLInvoiceConformance ()
   {
     _checkConformance (new UBL21InvoicePurifier (),
-                       EN16931Validation.VID_UBL_INVOICE_1316.getWithVersionLatestRelease (),
+                       EN16931Validation.VID_UBL_INVOICE_1317.getWithVersionLatestRelease (),
                        MockTestFiles.getAllUBLInvoiceFiles ());
   }
 
@@ -121,7 +121,7 @@ public final class EN16931ConformanceTest
   public void testUBLCreditNoteConformance ()
   {
     _checkConformance (new UBL21CreditNotePurifier (),
-                       EN16931Validation.VID_UBL_CREDIT_NOTE_1316.getWithVersionLatestRelease (),
+                       EN16931Validation.VID_UBL_CREDIT_NOTE_1317.getWithVersionLatestRelease (),
                        MockTestFiles.getAllUBLCreditNoteFiles ());
   }
 
@@ -129,7 +129,7 @@ public final class EN16931ConformanceTest
   public void testCIIConformance ()
   {
     _checkConformance (new CIID16BPurifier (),
-                       EN16931Validation.VID_CII_1316.getWithVersionLatestRelease (),
+                       EN16931Validation.VID_CII_1317.getWithVersionLatestRelease (),
                        MockTestFiles.getAllCIIFiles ());
   }
 }
