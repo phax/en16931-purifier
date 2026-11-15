@@ -227,6 +227,10 @@ mvn clean package -pl en16931-purifier-cli
 
 # News and noteworthy
 
+v1.1.1 - work in progress
+* The dependency management now imports the BOMs of ph-commons, ph-ubl and ph-cii instead of their parent POMs
+* Updated to ph-commons 12.7.1, ph-ubl 10.3.0 and ph-cii 4.1.4
+
 v1.1.0 - 2026-09-05
 * Now using the shared [en16931-basics](https://github.com/phax/en16931-basics) library for the facts about the standard
 * Removed `CEN16931Syntax`, `EEN16931SyntaxKind` and `EEN16931DocumentType` in favour of the identical classes in package `com.helger.en16931.basics`
